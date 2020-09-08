@@ -1,6 +1,7 @@
 class	Game
 {
 	constructor() {
+		this.food = {x: 0, y: 0};
 		this.scale = 20;
 		this.canvas = document.createElement("canvas");
 		this.canvas.width = 600;
@@ -10,12 +11,19 @@ class	Game
 		this.create_map();
 	}
 
-	init(snake) {
-		snake.show(this.context, this.scale);
-	}
-	
-	update(snake) {
-		this.update_snake(snake);
+	create_food(x, y) {
+
+		do {
+			this.food = {
+				x: Math.floor(Math.random() * this.canvas.width / this.scale),
+				y: Math.floor(Math.random() * this.canvas.height / this.scale)
+			};
+		}
+		while (this.food.x == x && this.food.y == y);
+
+		this.context.fillStyle = "red";
+		this.context.fillRect(this.food.x * this.scale + 1, this.food.y * this.scale + 1, this.scale - 2, this.scale - 2);
+		this.context.fill();
 	}
 
 	create_map() {
@@ -43,9 +51,19 @@ class	Game
 		}
 	}
 
-	update_snake(snake) {
-		snake.clear(this.context, this.scale);
-		snake.update();
+	init(snake) {
+		this.create_food(snake.x, snake.y);
 		snake.show(this.context, this.scale);
 	}
+	
+	update(snake) {
+		if (snake.x == this.food.x && snake.y == this.food.y) {
+			this.create_food(snake.x, snake.y);
+			// snake.eat(food);
+		}
+		snake.clear(this.context, this.scale);
+		snake.update(this.canvas.width / this.scale, this.canvas.height / this.scale);
+		snake.show(this.context, this.scale);
+	}
+
 }
