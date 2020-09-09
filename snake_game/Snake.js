@@ -1,6 +1,6 @@
 class	Snake
 {
-	constructor(size, color, x, y) {
+	constructor(color, x, y) {
 		this.color = color;
 		this.x_speed = 0;
 		this.y_speed = 0;
@@ -11,13 +11,13 @@ class	Snake
 	change_direction(direction) {
 		if (this.tail.length > 1) {
 			if (this.direction == 37 && direction == 39)
-				alert("game over");
+				console.log("game over");
 			else if (this.direction == 39 && direction == 37)
-				alert("game over");
+			console.log("game over");
 			else if (this.direction == 38 && direction == 40)
-				alert("game over");
+			console.log("game over");
 			else if (this.direction == 40 && direction == 38)
-				alert("game over");
+			console.log("game over");
 		}
 		this.direction = direction;
 		if (direction == 37) {
@@ -65,7 +65,7 @@ class	Snake
 
 		if ((!(this.tail[0].x >= 0 && this.tail[0].x < width
 			&& this.tail[0].y >= 0 && this.tail[0].y < height)) || this.collide_tail()) {
-				alert("game over");
+				console.log("game over");
 		}
 	}
 

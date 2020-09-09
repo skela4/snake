@@ -1,0 +1,23 @@
+*, :after, :before {
+	box-sizing: border-box;
+}
+
+.button {
+	display: inline-block;
+	padding: .4em 1em;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	cursor: pointer;
+	font-size: 18px;
+}
+
+.button-default {
+    color: #333;
+    border: 1px solid #dcdfe6;
+    background-color: #fff;
+}
+
+.button-primary {
+    background-color: #444ce0;
+}

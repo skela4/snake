@@ -1,9 +1,11 @@
 class	Game
 {
-	constructor() {
+	constructor(snake) {
+		this.snake = snake;
 		this.food = {x: 0, y: 0};
 		this.scale = 20;
 		this.canvas = document.createElement("canvas");
+		this.canvas.id = "snakegame"
 		this.canvas.width = 600;
 		this.canvas.height = 600;
 		this.context = this.canvas.getContext("2d");
@@ -43,25 +45,27 @@ class	Game
 				this.context.lineTo(i * this.scale, this.canvas.height);
 				this.context.stroke();
 				this.context.moveTo(0, j * this.scale);
+				// this.context.strokeStyle =  "#0000007a"
 				this.context.lineTo(this.canvas.width, j * this.scale);
 				this.context.stroke();
+		
 			}
 		}
 	}
 
-	init(snake) {
-		this.create_food(snake.tail);
-		snake.show(this.context, this.scale);
+	init() {
+		this.create_food(this.snake.tail);
+		this.snake.show(this.context, this.scale);
 	}
 	
-	update(snake) {
+	update() {
 		// console.log(snake.tail)
-		if (snake.eat(this.food))
-			this.create_food(snake.tail);
+		if (this.snake.eat(this.food))
+			this.create_food(this.snake.tail);
 		
-		snake.clear(this.context, this.scale);
-		snake.update(this.canvas.width / this.scale, this.canvas.height / this.scale);
-		snake.show(this.context, this.scale);
+		this.snake.clear(this.context, this.scale);
+		this.snake.update(this.canvas.width / this.scale, this.canvas.height / this.scale);
+		this.snake.show(this.context, this.scale);
 	}
 
 }

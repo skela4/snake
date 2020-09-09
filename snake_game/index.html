@@ -8,12 +8,23 @@
 		canvas {
 			border: 1px solid black;
 			background-color: #f1f1f1;
+			transition: all ease 1s;
 		}
 	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<div id="btn-pause" class="button button-default">pause</div>
+	<div id="btn-stop" class="button button-default">stop</div>
+	<div id="btn-resume" class="button button-default">resume</div>
+	<div id="btn-restart" class="button button-default">restart</div>
 	<script src="Game.js"></script>
 	<script src="Snake.js"></script>
 	<script src="app.js"></script>
+	<script>
+		function changefond(){
+			document.getElementById("snakegame").style.background = "rgb(" + Math.floor(Math.random() * 255)  + "," + Math.floor(Math.random() * 255)  + ","  +Math.floor(Math.random() * 255)  + ")"    
+		}
+	</script>
 </body>
 </html>
