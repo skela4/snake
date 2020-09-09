@@ -1,17 +1,25 @@
 class	Snake
 {
 	constructor(size, color, x, y) {
-		this.x = x;
-		this.y = y;
+		this.color = color;
 		this.x_speed = 0;
 		this.y_speed = 0;
-	}
-
-	eat(food) {
-		
+		this.direction = null;
+		this.tail = [{x,y}];
 	}
 
 	change_direction(direction) {
+		if (this.tail.length > 1) {
+			if (this.direction == 37 && direction == 39)
+				alert("game over");
+			else if (this.direction == 39 && direction == 37)
+				alert("game over");
+			else if (this.direction == 38 && direction == 40)
+				alert("game over");
+			else if (this.direction == 40 && direction == 38)
+				alert("game over");
+		}
+		this.direction = direction;
 		if (direction == 37) {
 			this.x_speed = -1;
 			this.y_speed = 0;
@@ -30,22 +38,50 @@ class	Snake
 		}
 	}
 
-	update(width, height) {
-		this.x = this.x + this.x_speed;
-		this.y = this.y + this.y_speed;
-		if (!(this.x >= 0 && this.x < width && this.y >= 0 && this.y < height)) {
-			alert("game over");
+	eat(food) {
+		if (this.tail[0].x == food.x && this.tail[0].y == food.y) {
+			this.tail.push(food);
+			return (1);
 		}
-			
+		return (0);
+	}
+
+	collide_tail() {
+		for (let i = 1; i < this.tail.length; i++) {
+			if (this.tail[i].x == this.tail[0].x && this.tail[i].y == this.tail[0].y)
+				return (1);
+		}
+		return (0);
+	}
+
+	update(width, height) {
+		let total = this.tail.length - 1;
+		for (total; total > 0; total--) {
+			this.tail[total].x = this.tail[total - 1].x;
+			this.tail[total].y = this.tail[total - 1].y;
+		}
+		this.tail[0].x = this.tail[0].x + this.x_speed;
+		this.tail[0].y = this.tail[0].y + this.y_speed;
+
+		if ((!(this.tail[0].x >= 0 && this.tail[0].x < width
+			&& this.tail[0].y >= 0 && this.tail[0].y < height)) || this.collide_tail()) {
+				alert("game over");
+		}
 	}
 
 	show(ctx, scale) {
-		ctx.fillStyle = "green";
-		ctx.fillRect(this.x * scale + 1, this.y * scale + 1, scale - 2, scale - 2);
+		ctx.fillStyle = this.color;
+		for (let i = 0; i < this.tail.length; i++) {
+			const element = this.tail[i];
+			ctx.fillRect(element.x * scale + 1, element.y * scale + 1, scale - 2, scale - 2);
+		}
 		ctx.fill();
 	}
 
 	clear(ctx, scale) {
-        ctx.clearRect(this.x * scale + 1, this.y * scale + 1, scale - 2, scale - 2);
+		for (let i = 0; i < this.tail.length; i++) {
+			const element = this.tail[i];
+			ctx.clearRect(element.x * scale + 1, element.y * scale + 1, scale - 2, scale - 2);
+		}
 	}
 }

@@ -1,7 +1,7 @@
 
 function startGame() {
 	let game = new Game();
-	let snake = new Snake(game.scale, "red", 4, 4);
+	let snake = new Snake(game.scale, "green", 4, 4);
 
 	document.addEventListener('keydown', (event) => {
 
@@ -10,7 +10,7 @@ function startGame() {
 	game.init(snake);
 	setInterval(() => {
 		game.update(snake);
-	}, 200)
+	}, 75)
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {

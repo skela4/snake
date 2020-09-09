@@ -11,16 +11,14 @@ class	Game
 		this.create_map();
 	}
 
-	create_food(x, y) {
-
+	create_food(snake_array) {
 		do {
 			this.food = {
 				x: Math.floor(Math.random() * this.canvas.width / this.scale),
 				y: Math.floor(Math.random() * this.canvas.height / this.scale)
 			};
 		}
-		while (this.food.x == x && this.food.y == y);
-
+		while (snake_array.findIndex((element) => JSON.stringify(element) === JSON.stringify(this.food)) !== -1);
 		this.context.fillStyle = "red";
 		this.context.fillRect(this.food.x * this.scale + 1, this.food.y * this.scale + 1, this.scale - 2, this.scale - 2);
 		this.context.fill();
@@ -52,15 +50,15 @@ class	Game
 	}
 
 	init(snake) {
-		this.create_food(snake.x, snake.y);
+		this.create_food(snake.tail);
 		snake.show(this.context, this.scale);
 	}
 	
 	update(snake) {
-		if (snake.x == this.food.x && snake.y == this.food.y) {
-			this.create_food(snake.x, snake.y);
-			// snake.eat(food);
-		}
+		// console.log(snake.tail)
+		if (snake.eat(this.food))
+			this.create_food(snake.tail);
+		
 		snake.clear(this.context, this.scale);
 		snake.update(this.canvas.width / this.scale, this.canvas.height / this.scale);
 		snake.show(this.context, this.scale);
