@@ -37,7 +37,6 @@ function stopGame() {
 		game_state.refresh_id = null;
 		game_state.game.snake.clear(game_state.game.context, game_state.game.scale);
 		game_state.game.clear_food();
-		console.log("stopping game")
 	}
 }
 

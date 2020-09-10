@@ -52,7 +52,6 @@ class	Game
 				this.context.strokeStyle =  "#777777"
 				this.context.lineTo(this.canvas.width, j * this.scale);
 				this.context.stroke();
-		
 			}
 		}
 	}
